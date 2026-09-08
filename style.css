@@ -3,3 +3,46 @@
     padding: 0;
     box-sizing: border-box;
 }
+.main {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;  
+    background-color: aqua;
+}
+.calcBody{
+    border: 2px solid black;
+    width: 500px;
+    height: 710px;
+    display: flex;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #2C2C2C;
+}
+.displayArea{
+    border: 2px solid black;
+    height: 150px;
+    width: 455px;
+    border-radius: 20px;
+    background-color: antiquewhite;
+}
+
+.buttonsArea{
+    border: 2px solid black;
+    height: 500px;
+    width: 455px;
+    border-radius: 20px;
+}
+
+.upperButtons{
+    height: 100px;
+    width: 100%;
+    border: 2px solid black;
+}
+
+
