@@ -34,10 +34,14 @@ let operator = ""
 
 function displayyOperations(content){
 
+
     if(content === "="){
         secondOperand = displayArea.textContent;
         firstOperand = calculations(firstOperand, secondOperand, operator);
-        displayArea.textContent = secondOperand;
+        displayArea.textContent = firstOperand;
+        secondOperand = "";
+        operator = "";
+
     } 
 
     else if(operatorsList.includes(content)){
@@ -46,18 +50,29 @@ function displayyOperations(content){
             operator = content;
             displayArea.textContent = "";
         }
-        else{
+        else if(firstOperand !== "" && operator !== ""){
             secondOperand = displayArea.textContent;
             firstOperand = calculations(firstOperand, secondOperand, operator);
             operator = content;
             displayArea.textContent = "";
         }
+        else if(firstOperand !== "" && operator === ""){
+            firstOperand = displayArea.textContent;
+            operator = content;
+            displayArea.textContent = "";
+            
+        }
+
 
     } 
     else {
         if (displayArea.textContent === "0") displayArea.textContent = content;
         else displayArea.textContent += content;
     }
+    console.log(firstOperand, "first operand");
+    console.log(secondOperand, "second operand");
+    console.log(operator , " operator");
+    console.log(content , "content");
 }
 
 
