@@ -1,5 +1,8 @@
 const buttonArea = document.querySelector(".buttonsArea");
 const displayArea = document.querySelector(".displayArea");
+const clearButton = document.querySelector(".heyClear");
+const backSpace = document.querySelector(".heyBackSpace");
+
 
 let buttonList = [["7" , "8" , "9" , "/"], ["4", "5", "6", "*"], ["1", "2", "3", "-"], ["0", ".", "=", "+"]];
 let operatorsList = ["+" , "-", "*", "/"];
@@ -24,6 +27,36 @@ for(let i = 0 ; i < 4 ; i++){
     }
 }
 
+//Event for the clear button 
+clearButton.addEventListener("click", () => {
+    firstOperand = "";
+    operator = "";
+    secondOperand = "";
+    displayArea.textContent = "0";
+
+});
+
+//Event for backSpace button
+backSpace.addEventListener("click", () => {
+
+    if(displayArea.textContent === "" && firstOperand !== ""){
+        displayArea.textContent = firstOperand;
+        operator = "";
+    }
+    // else if(secondOperand !== ""){
+    //     displayArea.textContent = secondOperand;
+    //     firstOperand = 
+    //     operator = "";
+        
+    // }
+    else{
+        let str = displayArea.textContent;
+        str = str.slice(0, -1);
+        displayArea.textContent = str;
+    }
+});
+
+//functional areaa 
 //showing default 0 value in the display area 
 displayArea.textContent = "0";
 
@@ -34,14 +67,18 @@ let operator = ""
 
 function displayyOperations(content){
 
-
     if(content === "="){
         secondOperand = displayArea.textContent;
         firstOperand = calculations(firstOperand, secondOperand, operator);
         displayArea.textContent = firstOperand;
+        if(firstOperand === "Error"){
+            firstOperand = "";
+            secondOperand = "";
+            operator = ""
+            return
+        }
         secondOperand = "";
         operator = "";
-
     } 
 
     else if(operatorsList.includes(content)){
@@ -63,21 +100,21 @@ function displayyOperations(content){
             
         }
 
-
     } 
+    
     else {
         if (displayArea.textContent === "0") displayArea.textContent = content;
         else displayArea.textContent += content;
     }
-    console.log(firstOperand, "first operand");
-    console.log(secondOperand, "second operand");
-    console.log(operator , " operator");
-    console.log(content , "content");
 }
 
 
 function calculations(operendFirst, operandSecond, operator) {
     let res = 0;
+
+    if (isNaN(Number(operendFirst)) || isNaN(Number(operandSecond))) {
+        return "Error";
+    }
 
     if (operator === "+") {
         res = Number(operendFirst) + Number(operandSecond);
@@ -89,7 +126,8 @@ function calculations(operendFirst, operandSecond, operator) {
         res = Number(operendFirst) * Number(operandSecond);
     }
     else if (operator === "/") {
-        if(Number(operandSecond) === 0) return "Can't Divide by 0"
+        if(Number(operandSecond) === 0) return "Error";  //Error message if divison by 0
+
         res = Number(operendFirst) / Number(operandSecond);
     }
 
