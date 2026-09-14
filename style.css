@@ -32,15 +32,14 @@
     width: 455px;
     border-radius: 20px;
     background-color: #334155;
-    /* display: flex; */
-    align-items: center;
-    justify-content: flex-end;
+    display: block;
     font-size: 50pt;
     color: #F8FAFC;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
     line-height: 150px;
+    text-align: right;
 }
 
 .buttonsArea{

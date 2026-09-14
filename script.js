@@ -32,28 +32,23 @@ clearButton.addEventListener("click", () => {
     firstOperand = "";
     operator = "";
     secondOperand = "";
+    history = [];
     displayArea.textContent = "0";
 
 });
 
 //Event for backSpace button
 backSpace.addEventListener("click", () => {
+    if(history.length === 0){
+        return;
+    }
 
-    if(displayArea.textContent === "" && firstOperand !== ""){
-        displayArea.textContent = firstOperand;
-        operator = "";
-    }
-    // else if(secondOperand !== ""){
-    //     displayArea.textContent = secondOperand;
-    //     firstOperand = 
-    //     operator = "";
-        
-    // }
-    else{
-        let str = displayArea.textContent;
-        str = str.slice(0, -1);
-        displayArea.textContent = str;
-    }
+    //retaining the previous state when backspacee is used 
+    const previousState = history.pop();
+    firstOperand = previousState.firstOperand;
+    secondOperand = previousState.secondOperand;
+    operator = previousState.operator;
+    displayArea.textContent = previousState.display;
 });
 
 //functional areaa 
@@ -63,11 +58,17 @@ displayArea.textContent = "0";
 let firstOperand = "";
 let secondOperand = "";
 let operator = ""
+let history = [];
 
-
+//function for all the operations taking place in displayyy
 function displayyOperations(content){
+    saveHistory();
 
     if(content === "="){
+        if (firstOperand === "" || operator === "" || displayArea.textContent === "") {
+            return;
+        }
+        
         secondOperand = displayArea.textContent;
         firstOperand = calculations(firstOperand, secondOperand, operator);
         displayArea.textContent = firstOperand;
@@ -103,15 +104,27 @@ function displayyOperations(content){
     } 
     
     else {
+        if (content === "." && displayArea.textContent.includes(".")) {
+            return;
+        }
+
         if (displayArea.textContent === "0") displayArea.textContent = content;
         else displayArea.textContent += content;
     }
 }
 
+function saveHistory() {
+    history.push({
+        firstOperand: firstOperand,
+        secondOperand: secondOperand,
+        operator: operator,
+        display: displayArea.textContent
+    });
+}
 
 function calculations(operendFirst, operandSecond, operator) {
     let res = 0;
-
+    console.log("CALC:", operendFirst, operator, operandSecond);
     if (isNaN(Number(operendFirst)) || isNaN(Number(operandSecond))) {
         return "Error";
     }
